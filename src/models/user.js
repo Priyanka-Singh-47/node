@@ -9,9 +9,8 @@ const userSchema = new Schema({
     enum: ["", "Male", "Female", "Other"],
     required: true,
   }, // M,F,O
- city: { type: String, default: "", required: true },
+  city: { type: String, default: "", required: true },
   password: { type: String, default: null, required: true },
-
 });
 
 module.exports = model("user", userSchema);

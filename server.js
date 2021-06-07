@@ -5,7 +5,7 @@ var path = require("path");
 var dotenv = require("dotenv");
 var { connect } = require("mongoose");
 
-// const router = require("./router");
+const router = require("./");
 
 dotenv.config();
 

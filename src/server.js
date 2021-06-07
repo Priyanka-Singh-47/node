@@ -1,7 +1,7 @@
 var express = require("express");
 var http = require("http");
 var cors = require("cors");
-var path = require("path");
+// var path = require("path");
 var dotenv = require("dotenv");
 var { connect } = require("mongoose");
 
@@ -36,7 +36,7 @@ app.use(cors(corsOption));
 
 app.use("/api", router);
 
-app.use("/assets", express.static(path.join(__dirname, "..", "app", "assets")));
+// app.use("/assets", express.static(path.join(__dirname, "..", "app", "assets")));
 
 /* create server */
 const server = http.createServer(app);

@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 
 const userModel = require("../models/user");
 
+let flag = 0;
 const signUp = async (req, res) => {
   try {
     // console.log("I am inside signup data");
@@ -49,6 +50,7 @@ const userLogin = async (req, res) => {
     // console.log(userdata.password);
     const match = await bcrypt.compare(password, userdata.password);
     if (match) {
+      flag = 1;
       res.status(200).json("you are signed in successfully");
     } else {
       res.status(500).json("invalid login credentials");
@@ -66,7 +68,12 @@ const viewProfile = async (req, res) => {
 
     const userdata = await userModel.findOne({ _id: id });
     // console.log(userdata);
-    res.status(200).json(userdata);
+
+    if (flag == 1) {
+      res.status(200).json(userdata);
+    } else {
+      res.status(500).json("please login");
+    }
   } catch (error) {
     res.status(400).json("unexpected error occured");
     console.log(error);
@@ -85,9 +92,9 @@ const updateDetails = async (req, res) => {
       city: req.body.city || userdata.city,
     };
     await userModel.updateOne({ _id: id }, myNewData, function (err) {
-      if (err) res.status(500).json("unable to update user data");
-      res.status(200).json("data is updated successfully");
-    });
+      if (err) { res.status(500).json("unable to update user data");}
+      else { flag= 1; res.status(200).json("data is updated successfully");}
+     });
   } catch (error) {
     res.status(400).json("unexpected error occured");
     console.log(error);
